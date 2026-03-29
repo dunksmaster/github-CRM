@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Gumroad Auditor Enterprise - Complete Suite</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        :root {
+            --bg: #0a0a0a;
+            --s1: #111;
+            --s2: #1a1a1a;
+            --s3: #222;
+            --b1: rgba(255,255,255,0.07);
+            --b2: rgba(255,255,255,0.13);
+            --b3: rgba(255,255,255,0.22);
+            --tx: #f0f0f0;
+            --mu: #777;
+            --mu2: #555;
+            --acc: #c8f545;
+            --acc2: #a8d930;
+            --red: #ff4545;
+            --amb: #ffaa00;
+            --grn: #3ddc7a;
+            --blu: #4d8fff;
+            --purple: #a855f7;
+            --pink: #ec4899;
+            --cyan: #06b6d4;
+            --fn: 'Syne', sans-serif;
+            --fm: 'DM Mono', monospace;
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--tx);
+            font-family: var(--fn);
+            min-height: 100vh;
+        }
+        
+        .wrap {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem;
+        }
+        
+        .hdr {
+            margin-bottom: 2rem;
+        }
+        
+        .hdr-top {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .hdr h1 {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .hdr h1 em {
+            color: var(--acc);
+            font-style: normal;
+        }
+        
+        .version {
+            font-size: 11px;
+            font-family: var(--fm);
+            color: var(--mu2);
+            background: var(--s2);
+            border: 1px solid var(--b2);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        
+        .badge-pro {
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+        
+        .badge-licensed {
+            background: var(--grn);
+            color: #000;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 8px;
+        }
+        
+        .connect {
+            background: var(--s1);
+            border: 1px solid var(--b2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .field-label {
+            font-size: 10px;
+            font-family: var(--fm);
+            color: var(--mu);
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .inp-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .inp {
+            flex: 1;
+            background: var(--s2);
+            border: 1px solid var(--b2);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: var(--tx);
+            font-family: var(--fm);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+            min-width: 200px;
+        }
+        
+        .inp:focus {
+            border-color: var(--acc);
+        }
+        
+        .go-btn {
+            background: var(--acc);
+            color: #080808;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 22px;
+            font-family: var(--fn);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.15s;
+            flex-shrink: 0;
+        }
+        
+        .go-btn:hover {
+            background: var(--acc2);
+            transform: translateY(-1px);
+        }
+        
+        .secondary-btn {
+            background: var(--s2);
+            border: 1px solid var(--b2);
+            color: var(--tx);
+        }
+        
+        .secondary-btn:hover {
+            border-color: var(--acc);
+            color: var(--acc);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 20px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .widget {
+            background: var(--s1);
+            border: 1px solid var(--b2);
+            border-radius: 16px;
+            padding: 1.25rem;
+            transition: all 0.2s;
+        }
+        
+        .widget:hover {
+            border-color: var(--acc);
+            transform: translateY(-2px);
+        }
+        
+        .widget h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--acc);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .scard {
+            background: var(--s1);
+            border: 1px solid var(--b1);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: transform 0.2s;
+        }
+        
+        .scard:hover {
+            transform: translateY(-2px);
+            border-color: var(--b2);
+        }
+        
+        .scard-l {
+            font-size: 10px;
+            font-family: var(--fm);
+            color: var(--mu);
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+        
+        .scard-v {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .health {
+            background: var(--s1);
+            border: 1px solid var(--b2);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .h-num {
+            font-size: 58px;
+            font-weight: 800;
+            line-height: 1;
+            font-family: var(--fm);
+        }
+        
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            background: var(--s2);
+            border: 1px solid var(--b2);
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-family: var(--fn);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--tx);
+        }
+        
+        .action-btn:hover {
+            border-color: var(--acc);
+            color: var(--acc);
+            transform: translateY(-1px);
+        }
+        
+        .progress-bar {
+            background: var(--s2);
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .progress-fill {
+            background: var(--acc);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-family: var(--fm);
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-input, .sort-select {
+            background: var(--s2);
+            border: 1px solid var(--b2);
+            border-radius: 8px;
+            padding: 6px 12px;
+            color: var(--tx);
+            font-family: var(--fm);
+            font-size: 12px;
+        }
+        
+        .pc {
+            background: var(--s1);
+            border: 1px solid var(--b1);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        
+        .pc:hover {
+            border-color: var(--b2);
+            transform: translateX(4px);
+        }
+        
+        .pc-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.9rem 1.1rem;
+            cursor: pointer;
+            user-select: none;
+            flex-wrap: wrap;
+        }
+        
+        .pc-ico {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: var(--fm);
+            flex-shrink: 0;
+        }
+        
+        .ico-p {
+            background: rgba(200, 245, 69, 0.1);
+            color: var(--acc);
+        }
+        
+        .ico-f {
+            background: rgba(77, 143, 255, 0.1);
+            color: var(--blu);
+        }
+        
+        .pc-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .pc-name {
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .pc-sub {
+            font-size: 11px;
+            color: var(--mu);
+            font-family: var(--fm);
+            margin-top: 2px;
+        }
+        
+        .pc-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        .sc-badge {
+            font-size: 12px;
+            font-weight: 700;
+            font-family: var(--fm);
+            padding: 3px 10px;
+            border-radius: 7px;
+        }
+        
+        .sc-hi { background: rgba(61, 220, 122, 0.12); color: var(--grn); }
+        .sc-mi { background: rgba(255, 170, 0, 0.12); color: var(--amb); }
+        .sc-lo { background: rgba(255, 69, 69, 0.12); color: var(--red); }
+        
+        .arr {
+            color: var(--mu);
+            font-size: 11px;
+            transition: transform 0.2s;
+        }
+        
+        .arr.open { transform: rotate(180deg); }
+        
+        .pc-body {
+            display: none;
+            border-top: 1px solid var(--b1);
+            padding: 1.25rem;
+        }
+        
+        .pc-body.open { display: block; }
+        
+        .a2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0 10px;
+        }
+        
+        .abox {
+            background: var(--s2);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+        
+        .abox-l {
+            font-size: 10px;
+            font-family: var(--fm);
+            color: var(--mu);
+            letter-spacing: 0.07em;
+            margin-bottom: 7px;
+        }
+        
+        .afull {
+            background: var(--s2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 10px;
+        }
+        
+        .ilist {
+            list-style: none;
+        }
+        
+        .ilist li {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            padding: 5px 0;
+            border-bottom: 1px solid var(--b1);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+        
+        .idot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+        
+        .dc { background: var(--red); }
+        .dw { background: var(--amb); }
+        .dg { background: var(--grn); }
+        
+        .newtitle {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--acc);
+            line-height: 1.4;
+        }
+        
+        .newdesc {
+            background: #0b1600;
+            border: 1px solid rgba(200, 245, 69, 0.15);
+            border-radius: 10px;
+            padding: 1rem;
+            font-size: 12px;
+            line-height: 1.85;
+            color: #c8e870;
+            font-family: var(--fm);
+            white-space: pre-wrap;
+            margin-bottom: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .cpbtn {
+            background: transparent;
+            border: 1px solid var(--b2);
+            color: var(--tx);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-family: var(--fn);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .cpbtn:hover { background: var(--s2); }
+        
+        .social-card {
+            background: var(--s2);
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--b1);
+            margin-bottom: 8px;
+        }
+        
+        .social-card:hover {
+            border-color: var(--acc);
+            transform: translateY(-2px);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--s2);
+            border: 1px solid var(--acc);
+            color: var(--acc);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-family: var(--fm);
+            font-size: 12px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .favorite-star {
+            cursor: pointer;
+            color: var(--mu);
+            font-size: 14px;
+            margin-left: 6px;
+        }
+        
+        .favorite-star.active { color: var(--acc); }
+        
+        .shortcut-hint {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 10px;
+            color: var(--mu2);
+            background: var(--s2);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: var(--fm);
+        }
+        
+        .license-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .license-box {
+            background: var(--s1);
+            border: 1px solid var(--b2);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .revenue-chart-bar {
+            background: var(--s3);
+            height: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .revenue-fill {
+            background: var(--acc);
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .priority-list {
+            background: var(--s1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .priority-item {
+            padding: 8px;
+            border-bottom: 1px solid var(--b1);
+            font-size: 12px;
+        }
+        
+        .priority-high { color: var(--red); border-left: 3px solid var(--red); padding-left: 10px; }
+        .priority-medium { color: var(--amb); border-left: 3px solid var(--amb); padding-left: 10px; }
+        .priority-low { color: var(--grn); border-left: 3px solid var(--grn); padding-left: 10px; }
+        
+        .checklist-item {
+            padding: 6px;
+            border-bottom: 1px solid var(--b1);
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .grade-A { color: var(--grn); }
+        .grade-B { color: var(--acc); }
+        .grade-C { color: var(--amb); }
+        .grade-D { color: var(--red); }
+        
+        .run-btn {
+            width: 100%;
+            background: var(--s2);
+            border: 1px dashed rgba(200, 245, 69, 0.25);
+            color: var(--acc);
+            border-radius: 10px;
+            padding: 9px;
+            font-family: var(--fn);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        .run-btn:hover {
+            background: rgba(200, 245, 69, 0.04);
+            border-color: rgba(200, 245, 69, 0.45);
+        }
+        
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--b2);
+            color: var(--mu);
+            border-radius: 9px;
+            padding: 7px 16px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+        }
+        
+        textarea {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--b2);
+            border-radius: 8px;
+            padding: 10px;
+            color: var(--tx);
+            font-family: var(--fm);
+            font-size: 12px;
+        }
+        
+        .api-url-box {
+            background: var(--bg);
+            border: 1px solid var(--b2);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .manual-import {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--s2);
+            border-radius: 12px;
+            border: 1px dashed var(--b2);
+        }
+        
+        #screen-dash { display: none; }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .action-bar { flex-direction: column; }
+            .action-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="hdr">
+        <div class="hdr-top">
+            <div>
+                <h1>Gumroad <em>Auditor Enterprise</em></h1>
+                <span class="version">v6.0 — Complete Suite</span>
+                <span class="badge-pro">PRO</span>
+                <span class="badge-licensed" id="licenseBadge">⚠️ License Required</span>
+            </div>
+            <div id="sessionInfo" style="font-size: 11px; color: var(--mu);"></div>
+        </div>
+        <p>AI Audits · Smart Pricing · Social Media Generator · Email Suite · QR Codes · Funnel Analytics · PDF Export</p>
+    </div>
+
+    <!-- LICENSE MODAL -->
+    <div id="licenseModal" class="license-modal" style="display: none;">
+        <div class="license-box">
+            <h2 style="margin-bottom: 1rem;">🔒 License Required</h2>
+            <p style="margin-bottom: 1rem; font-size: 13px;">Please enter your license key to continue using Gumroad Auditor Enterprise.</p>
+            <input type="text" id="licenseKeyInput" class="inp" placeholder="Enter your license key..." style="width: 100%; margin-bottom: 1rem;">
+            <button class="go-btn" onclick="validateAndSaveLicense()" style="width: 100%;">Activate License</button>
+            <p style="margin-top: 1rem; font-size: 11px; color: var(--mu);">Don't have a license? <a href="#" onclick="showTrial()" style="color: var(--acc);">Start 14-day free trial</a></p>
+            <p class="ferr" id="licenseError"></p>
+        </div>
+    </div>
+
+    <!-- CONNECT SCREEN -->
+    <div id="screen-connect">
+        <div class="connect">
+            <div class="success-box" style="margin-bottom: 1rem; background: rgba(61,220,122,0.1); border-color: var(--grn); padding: 12px; border-radius: 8px;">
+                🚀 <strong>Gumroad Auditor Enterprise v6.0</strong> — Complete professional suite with ALL features!
+            </div>
+            
+            <span class="field-label">🤖 GOOGLE GEMINI API KEY <span class="free-badge">FREE TIER</span></span>
+            <div class="inp-row">
+                <input class="inp" type="password" id="geminiKey" placeholder="AIzaSy..."/>
+                <select class="model-select" id="geminiModel">
+                    <option value="gemini-1.5-flash">Gemini 1.5 Flash (Fast & Free)</option>
+                    <option value="gemini-1.5-pro">Gemini 1.5 Pro (More detailed)</option>
+                    <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash (Latest)</option>
+                </select>
+            </div>
+            <p class="hint">🆓 Get your free key at <a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a></p>
+            
+            <div class="manual-import">
+                <div class="field-label">📦 GET YOUR GUMROAD DATA</div>
+                
+                <div class="token-input-group">
+                    <label>🔑 Your Gumroad Access Token:</label>
+                    <div class="inp-row">
+                        <input class="inp" type="password" id="gumroadToken" placeholder="Paste your Gumroad access token here (starts with grs_...)" />
+                    </div>
+                </div>
+                
+                <div class="api-url-box">
+                    <input type="text" id="apiUrlInput" class="api-url-input" value="https://api.gumroad.com/v2/products?access_token=" readonly style="background: var(--bg); flex:1;" />
+                    <button class="open-tab-btn" onclick="openApiUrl()">🔗 Open API URL</button>
+                </div>
+                
+                <div class="field-label">📋 PASTE JSON RESPONSE HERE</div>
+                <textarea id="manualProducts" rows="5" placeholder='Paste your Gumroad API JSON response here...'></textarea>
+                
+                <div class="inp-row" style="margin-top: 12px;">
+                    <button class="go-btn" id="importBtn" style="flex: 1;">📥 Import Products</button>
+                    <button class="go-btn secondary-btn" id="loadSavedBtn">💾 Load Last Session</button>
+                </div>
+                
+                <button class="action-btn" style="margin-top: 10px; width: 100%;" onclick="loadExampleJSON()">📝 Load Example JSON (for testing)</button>
+            </div>
+            
+            <p class="ferr" id="ferr"></p>
+        </div>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="screen-dash">
+        <div class="stats" id="statsEl"></div>
+        <div id="healthEl"></div>
+        
+        <div class="dashboard-grid" id="dashboardWidgets1"></div>
+        <div class="dashboard-grid" id="dashboardWidgets2"></div>
+        
+        <div class="action-bar">
+            <button class="action-btn" onclick="batchAuditAll()">🚀 Batch Audit All</button>
+            <button class="action-btn" onclick="startABTest()">📊 A/B Test</button>
+            <button class="action-btn" onclick="generateSocialMedia()">📱 Generate Social Posts</button>
+            <button class="action-btn" onclick="generateEmailCampaign()">📧 Generate Email Suite</button>
+            <button class="action-btn" onclick="generateQRCode()">📱 Generate QR Code</button>
+            <button class="action-btn" onclick="bulkRewriteDescriptions()">✍️ Bulk Rewrite</button>
+            <button class="action-btn" onclick="exportToCSV()">📊 Export CSV</button>
+            <button class="action-btn" onclick="exportToJSON()">💾 Export JSON</button>
+            <button class="action-btn" onclick="exportToPDF()">📄 Export PDF</button>
+            <button class="action-btn" onclick="generatePriorityReport()">🎯 Priority Actions</button>
+            <button class="action-btn" onclick="backupToCloud()">☁️ Backup</button>
+            <button class="action-btn" onclick="toggleDarkMode()">🌓 Dark/Light</button>
+            <button class="action-btn" onclick="undo()">↩️ Undo</button>
+            <button class="action-btn" onclick="redo()">↪️ Redo</button>
+            <button class="action-btn danger" onclick="clearAllData()">🗑️ Clear</button>
+        </div>
+        
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill">0%</div>
+        </div>
+        
+        <div class="filter-bar">
+            <input type="text" id="searchFilter" class="filter-input" placeholder="🔍 Search..." onkeyup="filterProducts()">
+            <select id="typeFilter" class="filter-input" onchange="filterProducts()">
+                <option value="all">All Products</option>
+                <option value="paid">Paid Only</option>
+                <option value="free">Free Only</option>
+            </select>
+            <select id="scoreFilter" class="filter-input" onchange="filterProducts()">
+                <option value="all">All Scores</option>
+                <option value="high">High (70+)</option>
+                <option value="medium">Medium (45-69)</option>
+                <option value="low">Low (0-44)</option>
+            </select>
+            <select id="sortSelect" class="sort-select" onchange="sortProducts()">
+                <option value="default">Sort by: Default</option>
+                <option value="sales">Sort by: Sales</option>
+                <option value="revenue">Sort by: Revenue</option>
+                <option value="score">Sort by: Score</option>
+            </select>
+        </div>
+        
+        <div id="priorityReport" style="display: none;"></div>
+        <div id="listEl"></div>
+        
+        <button class="back-btn" onclick="goBack()">← Disconnect / Import Different Store</button>
+    </div>
+</div>
+
+<div class="shortcut-hint">
+    ⌨️ Shortcuts: Ctrl+Enter (Audit) | Ctrl+S (Export) | Ctrl+B (Batch) | Ctrl+D (Dark) | Ctrl+Z (Undo)
+</div>
+
+<script>
+// ============================================
+// LICENSE SYSTEM (FIX 2)
+// ============================================
+const VALID_LICENSES = ['GUMROAD-AUDITOR-ENTERPRISE-2024', 'TRIAL-KEY-2024', 'DEV-LICENSE-001'];
+let isLicensed = false;
+let trialStart = null;
+
+function checkLicense() {
+    const savedLicense = localStorage.getItem('license');
+    const savedTrial = localStorage.getItem('trialStart');
+    
+    if (savedLicense && VALID_LICENSES.includes(savedLicense)) {
+        isLicensed = true;
+        document.getElementById('licenseBadge').innerHTML = '✅ Licensed';
+        document.getElementById('licenseBadge').style.background = 'var(--grn)';
+        return true;
+    }
+    
+    if (savedTrial) {
+        const trialDate = new Date(savedTrial);
+        const daysSince = (Date.now() - trialDate) / (1000 * 3600 * 24);
+        if (daysSince < 14) {
+            isLicensed = true;
+            const daysLeft = Math.ceil(14 - daysSince);
+            document.getElementById('licenseBadge').innerHTML = `🎁 Trial (${daysLeft} days left)`;
+            document.getElementById('licenseBadge').style.background = 'var(--amb)';
+            return true;
+        }
+    }
+    
+    document.getElementById('licenseModal').style.display = 'flex';
+    return false;
+}
+
+function validateAndSaveLicense() {
+    const licenseKey = document.getElementById('licenseKeyInput').value.trim();
+    const errorEl = document.getElementById('licenseError');
+    
+    if (VALID_LICENSES.includes(licenseKey)) {
+        localStorage.setItem('license', licenseKey);
+        isLicensed = true;
+        document.getElementById('licenseModal').style.display = 'none';
+        document.getElementById('licenseBadge').innerHTML = '✅ Licensed';
+        document.getElementById('licenseBadge').style.background = 'var(--grn)';
+        showToast('✅ License activated successfully!');
+        return true;
+    } else {
+        errorEl.textContent = 'Invalid license key. Please check and try again.';
+        return false;
+    }
+}
+
+function showTrial() {
+    localStorage.setItem('trialStart', new Date().toISOString());
+    isLicensed = true;
+    document.getElementById('licenseModal').style.display = 'none';
+    document.getElementById('licenseBadge').innerHTML = '🎁 Trial (14 days left)';
+    document.getElementById('licenseBadge').style.background = 'var(--amb)';
+    showToast('🎉 14-day free trial started!');
+}
+
+// ============================================
+// UNDO/REDO SYSTEM (FIX 5)
+// ============================================
+let historyStack = [];
+let historyIndex = -1;
+const MAX_HISTORY = 50;
+
+function saveState() {
+    const state = JSON.stringify({
+        products: PRODUCTS,
+        auditCache: AUDIT_CACHE,
+        favorites: Array.from(FAVORITES)
+    });
+    
+    // Remove any future states if we're not at the end
+    if (historyIndex < historyStack.length - 1) {
+        historyStack = historyStack.slice(0, historyIndex + 1);
+    }
+    
+    historyStack.push(state);
+    if (historyStack.length > MAX_HISTORY) {
+        historyStack.shift();
+    } else {
+        historyIndex = historyStack.length - 1;
+    }
+}
+
+function undo() {
+    if (historyIndex > 0) {
+        historyIndex--;
+        const state = JSON.parse(historyStack[historyIndex]);
+        PRODUCTS = state.products;
+        AUDIT_CACHE = state.auditCache;
+        FAVORITES = new Set(state.favorites);
+        renderDash();
+        saveToLocalStorage();
+        showToast('↩️ Undo successful');
+    } else {
+        showToast('Nothing to undo', true);
+    }
+}
+
+function redo() {
+    if (historyIndex < historyStack.length - 1) {
+        historyIndex++;
+        const state = JSON.parse(historyStack[historyIndex]);
+        PRODUCTS = state.products;
+        AUDIT_CACHE = state.auditCache;
+        FAVORITES = new Set(state.favorites);
+        renderDash();
+        saveToLocalStorage();
+        showToast('↪️ Redo successful');
+    } else {
+        showToast('Nothing to redo', true);
+    }
+}
+
+// ============================================
+// PDF EXPORT (FIX 4)
+// ============================================
+function exportToPDF() {
+    const element = document.getElementById('listEl');
+    if (!element || PRODUCTS.length === 0) {
+        showToast('No products to export', true);
+        return;
+    }
+    
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Gumroad Auditor Report - ${new Date().toLocaleDateString()}</title>
+            <style>
+                body { font-family: Arial, sans-serif; padding: 40px; }
+                h1 { color: #c8f545; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                th { background: #333; color: white; }
+                .header { text-align: center; margin-bottom: 30px; }
+                .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #666; }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>Gumroad Auditor Report</h1>
+                <p>Generated: ${new Date().toLocaleString()}</p>
+                <p>Total Products: ${PRODUCTS.length}</p>
+            </div>
+            <table>
+                <thead>
+                    <tr><th>Product Name</th><th>Price</th><th>Sales</th><th>Revenue</th><th>Score</th></tr>
+                </thead>
+                <tbody>
+                    ${PRODUCTS.map(p => `
+                        <tr>
+                            <td>${escapeHtml(p.name || 'Untitled')}</td>
+                            <td>$${(p.price/100).toFixed(2)}</td>
+                            <td>${p.sales_count || 0}</td>
+                            <td>$${((p.price/100)*(p.sales_count||0)).toLocaleString()}</td>
+                            <td>${calcProductScore(p)}/100</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+            <div class="footer">
+                <p>Generated by Gumroad Auditor Enterprise - Professional AI Tool</p>
+            </div>
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.print();
+    showToast('📄 PDF report generated!');
+}
+
+// ============================================
+// BULK REWRITE DESCRIPTIONS (FIX 9)
+// ============================================
+async function bulkRewriteDescriptions() {
+    if (!isLicensed) {
+        showToast('Please activate license first', true);
+        return;
+    }
+    
+    const productsToRewrite = PRODUCTS.filter(p => calcProductScore(p) < 60);
+    if (productsToRewrite.length === 0) {
+        showToast('No products need rewriting!', true);
+        return;
+    }
+    
+    if (!confirm(`Rewrite descriptions for ${productsToRewrite.length} products? This will use AI credits.`)) return;
+    
+    saveState(); // Save before bulk operation
+    
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+    progressBar.style.display = 'block';
+    
+    let completed = 0;
+    for (let i = 0; i < productsToRewrite.length; i++) {
+        const product = productsToRewrite[i];
+        const percent = Math.round((i / productsToRewrite.length) * 100);
+        progressFill.style.width = `${percent}%`;
+        progressFill.textContent = `${percent}% - ${completed}/${productsToRewrite.length}`;
+        
+        // Generate new description via AI
+        const prompt = `Write a compelling Gumroad product description for: ${product.name}. Price: $${product.price/100}. Make it 150-200 words, benefit-focused, with bullet points. Return ONLY the description text.`;
+        
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: { temperature: 0.7, maxOutputTokens: 800 }
+                })
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                const newDesc = data.candidates[0].content.parts[0].text;
+                product.description = newDesc;
+                // Clear cached audit for this product
+                delete AUDIT_CACHE[product.id];
+            }
+        } catch(e) {
+            console.error('Failed to rewrite:', product.name);
+        }
+        
+        completed++;
+        await new Promise(resolve => setTimeout(resolve, 2000));
+    }
+    
+    progressFill.style.width = '100%';
+    progressFill.textContent = 'Complete!';
+    setTimeout(() => {
+        progressBar.style.display = 'none';
+        progressFill.style.width = '0%';
+    }, 2000);
+    
+    renderDash();
+    saveToLocalStorage();
+    showToast(`✅ Rewrote ${completed} product descriptions!`);
+}
+
+// ============================================
+// CONFIGURATION & GLOBAL VARIABLES
+// ============================================
+let GEMINI_KEY = '';
+let GEMINI_MODEL = 'gemini-1.5-flash';
+let PRODUCTS = [];
+let AUDIT_CACHE = {};
+let FAVORITES = new Set();
+let darkMode = true;
+let abTestResults = {};
+
+// ============================================
+// INITIALIZATION
+// ============================================
+window.addEventListener('DOMContentLoaded', () => {
+    if (checkLicense()) {
+        loadFromLocalStorage();
+        setupKeyboardShortcuts();
+        startAutoBackup();
+    }
+});
+
+// Keyboard shortcuts with undo/redo
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            const openCards = document.querySelectorAll('.pc-body.open');
+            if (openCards.length > 0) {
+                openCards[0].querySelector('.run-btn')?.click();
+            }
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            exportToCSV();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+            e.preventDefault();
+            batchAuditAll();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+            e.preventDefault();
+            toggleDarkMode();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+            e.preventDefault();
+            undo();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+            e.preventDefault();
+            redo();
+        }
+    });
+}
+
+function startAutoBackup() {
+    setInterval(() => {
+        if (PRODUCTS.length > 0 && isLicensed) {
+            saveToLocalStorage();
+        }
+    }, 300000);
+}
+
+function toggleDarkMode() {
+    darkMode = !darkMode;
+    const root = document.documentElement;
+    if (darkMode) {
+        root.style.setProperty('--bg', '#0a0a0a');
+        root.style.setProperty('--s1', '#111');
+        root.style.setProperty('--tx', '#f0f0f0');
+    } else {
+        root.style.setProperty('--bg', '#f5f5f5');
+        root.style.setProperty('--s1', '#ffffff');
+        root.style.setProperty('--tx', '#1a1a1a');
+    }
+    showToast(`🌓 ${darkMode ? 'Dark' : 'Light'} mode`);
+}
+
+function saveToLocalStorage() {
+    const data = {
+        products: PRODUCTS,
+        geminiKey: GEMINI_KEY,
+        geminiModel: GEMINI_MODEL,
+        auditCache: AUDIT_CACHE,
+        favorites: Array.from(FAVORITES),
+        abTestResults: abTestResults,
+        lastUpdated: new Date().toISOString()
+    };
+    localStorage.setItem('gumroad_auditor_enterprise', JSON.stringify(data));
+    document.getElementById('sessionInfo').innerHTML = `💾 Saved: ${new Date().toLocaleTimeString()}`;
+    setTimeout(() => {
+        if (document.getElementById('sessionInfo').innerHTML.includes('Saved')) {
+            document.getElementById('sessionInfo').innerHTML = '';
+        }
+    }, 2000);
+}
+
+function loadFromLocalStorage() {
+    const saved = localStorage.getItem('gumroad_auditor_enterprise');
+    if (saved) {
+        try {
+            const data = JSON.parse(saved);
+            if (data.products?.length > 0) {
+                PRODUCTS = data.products;
+                GEMINI_KEY = data.geminiKey || '';
+                GEMINI_MODEL = data.geminiModel || 'gemini-1.5-flash';
+                AUDIT_CACHE = data.auditCache || {};
+                if (data.favorites) FAVORITES = new Set(data.favorites);
+                if (data.abTestResults) abTestResults = data.abTestResults;
+                
+                if (GEMINI_KEY) document.getElementById('geminiKey').value = GEMINI_KEY;
+                document.getElementById('geminiModel').value = GEMINI_MODEL;
+                
+                showToast(`🔄 Loaded ${PRODUCTS.length} products`);
+                renderDash();
+                document.getElementById('screen-connect').style.display = 'none';
+                document.getElementById('screen-dash').style.display = 'block';
+                saveState(); // Initial state for undo/redo
+            }
+        } catch(e) { console.error(e); }
+    }
+}
+
+function backupToCloud() {
+    const backup = {
+        timestamp: new Date().toISOString(),
+        products: PRODUCTS,
+        auditCache: AUDIT_CACHE,
+        favorites: Array.from(FAVORITES),
+        abTestResults: abTestResults,
+        version: '6.0'
+    };
+    const blob = new Blob([JSON.stringify(backup, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `gumroad_backup_${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('☁️ Backup downloaded!');
+}
+
+function clearAllData() {
+    if (confirm('⚠️ Delete ALL data?')) {
+        localStorage.removeItem('gumroad_auditor_enterprise');
+        PRODUCTS = [];
+        AUDIT_CACHE = {};
+        FAVORITES.clear();
+        showToast('🗑️ All data cleared');
+        setTimeout(() => location.reload(), 1000);
+    }
+}
+
+function showToast(message, isError = false) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    if (isError) {
+        toast.style.borderColor = 'var(--red)';
+        toast.style.color = 'var(--red)';
+    }
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+// ============================================
+// API & IMPORT
+// ============================================
+document.getElementById('gumroadToken').addEventListener('input', function() {
+    const token = this.value.trim();
+    const apiUrlInput = document.getElementById('apiUrlInput');
+    if (token) {
+        apiUrlInput.value = `https://api.gumroad.com/v2/products?access_token=${token}`;
+        apiUrlInput.readOnly = false;
+    } else {
+        apiUrlInput.value = 'https://api.gumroad.com/v2/products?access_token=';
+        apiUrlInput.readOnly = true;
+    }
+});
+
+function openApiUrl() {
+    const url = document.getElementById('apiUrlInput').value;
+    const token = document.getElementById('gumroadToken').value.trim();
+    if (!token) {
+        showToast('❌ Please paste your Gumroad token first!', true);
+        return;
+    }
+    window.open(url, '_blank');
+    showToast('🔗 Opening API URL...');
+}
+
+function loadExampleJSON() {
+    const exampleJSON = {
+        "success": true,
+        "products": [
+            { "id": "sample1", "name": "Complete Ebook Masterclass", "price": 2999, "sales_count": 156, "description": "Learn to create and sell ebooks that generate passive income. Includes templates and marketing strategies. This comprehensive course covers everything from ideation to launch.", "preview_url": "https://example.com/preview", "created_at": "2024-01-01", "url": "https://gumroad.com/l/sample1" },
+            { "id": "sample2", "name": "Video Course Blueprint", "price": 4999, "sales_count": 89, "description": "Complete video training course creation guide. From planning to publishing. Learn professional video production, editing, and marketing strategies.", "preview_url": "https://example.com/preview2", "created_at": "2024-02-01", "url": "https://gumroad.com/l/sample2" },
+            { "id": "sample3", "name": "Free Marketing Guide", "price": 0, "sales_count": 1234, "description": "Quick marketing tips for creators - get more sales today!", "preview_url": null, "created_at": "2024-03-01", "url": "https://gumroad.com/l/sample3" },
+            { "id": "sample4", "name": "Premium Design Templates", "price": 1499, "sales_count": 45, "description": "Professional design templates for creators. Save hours of work.", "preview_url": "https://example.com/preview4", "created_at": "2024-04-01", "url": "https://gumroad.com/l/sample4" }
+        ]
+    };
+    document.getElementById('manualProducts').value = JSON.stringify(exampleJSON, null, 2);
+    showToast('✅ Example JSON loaded!');
+}
+
+function importManualProducts() {
+    const jsonText = document.getElementById('manualProducts').value.trim();
+    const geminiKey = document.getElementById('geminiKey').value.trim();
+    const geminiModel = document.getElementById('geminiModel').value;
+    const err = document.getElementById('ferr');
+    
+    err.textContent = '';
+    if (!jsonText) { err.textContent = '❌ Please paste JSON response.'; return; }
+    if (!geminiKey) { err.textContent = '❌ Please enter Gemini API key.'; return; }
+    
+    try {
+        const data = JSON.parse(jsonText);
+        if (!data.success && !data.products) {
+            PRODUCTS = Array.isArray(data) ? data : (data.products || []);
+        } else {
+            PRODUCTS = data.products || [];
+        }
+        if (PRODUCTS.length === 0) { err.textContent = '⚠️ No products found.'; return; }
+        
+        GEMINI_KEY = geminiKey;
+        GEMINI_MODEL = geminiModel;
+        
+        renderDash();
+        saveToLocalStorage();
+        saveState(); // Save initial state
+        document.getElementById('screen-connect').style.display = 'none';
+        document.getElementById('screen-dash').style.display = 'block';
+        showToast(`✅ Imported ${PRODUCTS.length} products!`);
+    } catch(e) {
+        err.textContent = `❌ Invalid JSON: ${e.message}`;
+    }
+}
+
+// ============================================
+// SCORING FUNCTIONS
+// ============================================
+function calcStoreScore(prods) {
+    let s = 35;
+    const paid = prods.filter(p => p.price > 0);
+    const free = prods.filter(p => p.price === 0);
+    const totalSales = prods.reduce((a, p) => a + (p.sales_count || 0), 0);
+    if (paid.length >= 3) s += 10;
+    if (paid.length >= 5) s += 5;
+    if (free.length > paid.length * 3) s -= 15;
+    if (free.length > paid.length * 5) s -= 10;
+    if (totalSales > 0) s += 10;
+    if (totalSales > 20) s += 10;
+    if (totalSales > 100) s += 10;
+    prods.forEach(p => { if ((p.description || '').length > 150) s += 1; });
+    return Math.max(0, Math.min(100, s));
+}
+
+function calcProductScore(p) {
+    let s = 30;
+    const desc = p.description || '';
+    if (desc.length > 100) s += 15;
+    if (desc.length > 400) s += 10;
+    if ((p.sales_count || 0) > 0) s += 15;
+    if ((p.sales_count || 0) > 10) s += 10;
+    if (p.price > 0 && p.price < 2000) s += 5;
+    if ((p.name || '').length < 55) s += 5;
+    if (p.preview_url) s += 10;
+    return Math.max(0, Math.min(100, s));
+}
+
+// ============================================
+// ANALYTICS FUNCTIONS
+// ============================================
+function calculateCohortAnalysis() {
+    const cohorts = {};
+    PRODUCTS.forEach(p => {
+        const month = p.created_at ? p.created_at.substring(0, 7) : 'unknown';
+        if (!cohorts[month]) cohorts[month] = { products: 0, revenue: 0, sales: 0 };
+        cohorts[month].products++;
+        cohorts[month].revenue += (p.price / 100) * (p.sales_count || 0);
+        cohorts[month].sales += (p.sales_count || 0);
+    });
+    return cohorts;
+}
+
+function calculateLTV() {
+    const paidProducts = PRODUCTS.filter(p => p.price > 0);
+    const totalRevenue = paidProducts.reduce((a, p) => a + ((p.price/100) * (p.sales_count || 0)), 0);
+    const totalCustomers = paidProducts.reduce((a, p) => a + (p.sales_count || 0), 0);
+    return totalCustomers > 0 ? (totalRevenue / totalCustomers).toFixed(2) : 0;
+}
+
+function gradeDescription(description) {
+    const checks = {
+        length: description?.length > 200 ? '✅' : '❌',
+        hasBullets: /[•\-★→]/.test(description) ? '✅' : '❌',
+        hasEmotion: /(amazing|exclusive|limited|proven|guaranteed|ultimate)/i.test(description) ? '✅' : '❌',
+        hasSocialProof: /(customers|users|people|rated|review)/i.test(description) ? '✅' : '❌',
+        hasCTA: /(buy|get|download|start|join|click)/i.test(description) ? '✅' : '❌',
+        hasBenefits: /(learn|discover|master|unlock|achieve)/i.test(description) ? '✅' : '❌'
+    };
+    const score = Object.values(checks).filter(v => v === '✅').length;
+    let grade = score >= 5 ? 'A+ Excellent' : score >= 4 ? 'A Good' : score >= 3 ? 'B Average' : score >= 2 ? 'C Needs Work' : 'D Poor';
+    return { score, grade, total: 6 };
+}
+
+function suggestOptimalPrice(product) {
+    const similarProducts = PRODUCTS.filter(p => p.price > 0 && Math.abs(p.price - product.price) < 1000 && p.id !== product.id);
+    if (similarProducts.length === 0) {
+        return { current: product.price/100, suggested: Math.round((product.price/100) * 1.1), confidence: 'Low', reason: 'No similar products found' };
+    }
+    const avgPrice = similarProducts.reduce((a, p) => a + p.price, 0) / similarProducts.length;
+    return {
+        current: product.price/100,
+        suggested: Math.round(avgPrice/100 * 100) / 100,
+        confidence: similarProducts.length > 3 ? 'High' : 'Medium',
+        reason: `Based on ${similarProducts.length} similar products`
+    };
+}
+
+function generateLaunchChecklist(product) {
+    const checklist = [
+        { text: "Write compelling description (200+ words)", completed: (product.description?.length || 0) > 200 },
+        { text: "Add product preview/video", completed: !!product.preview_url },
+        { text: "Get initial sales/reviews", completed: (product.sales_count || 0) > 0 },
+        { text: "Create email sequence for launch", completed: false },
+        { text: "Prepare social media posts (5+)", completed: false },
+        { text: "Set up discount for launch week", completed: false }
+    ];
+    return checklist;
+}
+
+// ============================================
+// A/B TESTING (FIX 3)
+// ============================================
+let activeABTests = {};
+
+function startABTest() {
+    const product = PRODUCTS.find(p => p.price > 0);
+    if (!product) { showToast('No paid products to test', true); return; }
+    
+    const testId = 'ab_' + Date.now();
+    activeABTests[testId] = {
+        productId: product.id,
+        productName: product.name,
+        variants: {
+            A: { description: product.description || '', sales: product.sales_count || 0 },
+            B: { description: (product.description || '') + '\n\n✨ SPECIAL OFFER: Limited time 20% off with code LAUNCH20', sales: 0 }
+        },
+        startTime: new Date().toISOString(),
+        status: 'active'
+    };
+    
+    // Store in localStorage
+    const existingTests = JSON.parse(localStorage.getItem('abTests') || '{}');
+    existingTests[testId] = activeABTests[testId];
+    localStorage.setItem('abTests', JSON.stringify(existingTests));
+    
+    // Create UI for tracking results
+    const resultsHtml = `
+        <div class="widget" id="abTest_${testId}">
+            <h3>📊 A/B Test: ${product.name}</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div style="background: var(--s2); padding: 10px; border-radius: 8px;">
+                    <strong>Variant A (Original)</strong>
+                    <p>Sales: ${activeABTests[testId].variants.A.sales}</p>
+                    <button class="action-btn" onclick="recordABConversion('${testId}', 'A')">📈 Record Sale (A)</button>
+                </div>
+                <div style="background: var(--s2); padding: 10px; border-radius: 8px;">
+                    <strong>Variant B (Test)</strong>
+                    <p>Sales: ${activeABTests[testId].variants.B.sales}</p>
+                    <button class="action-btn" onclick="recordABConversion('${testId}', 'B')">📈 Record Sale (B)</button>
+                </div>
+            </div>
+            <button class="action-btn" style="margin-top: 10px;" onclick="endABTest('${testId}')">🏁 End Test & See Results</button>
+        </div>
+    `;
+    
+    document.getElementById('dashboardWidgets2').innerHTML = resultsHtml + document.getElementById('dashboardWidgets2').innerHTML;
+    showToast(`📊 A/B Test started on "${product.name}"`);
+    saveToLocalStorage();
+}
+
+function recordABConversion(testId, variant) {
+    if (activeABTests[testId]) {
+        activeABTests[testId].variants[variant].sales++;
+        saveToLocalStorage();
+        
+        // Update UI
+        const widget = document.getElementById(`abTest_${testId}`);
+        if (widget) {
+            widget.querySelector(`div:first-child div:${variant === 'A' ? 'first-child' : 'last-child'} p`).innerHTML = `Sales: ${activeABTests[testId].variants[variant].sales}`;
+        }
+        showToast(`✅ Recorded sale for Variant ${variant}`);
+    }
+}
+
+function endABTest(testId) {
+    const test = activeABTests[testId];
+    if (!test) return;
+    
+    const variantA = test.variants.A.sales;
+    const variantB = test.variants.B.sales;
+    const winner = variantB > variantA ? 'B' : (variantA > variantB ? 'A' : 'Tie');
+    const improvement = variantB > variantA ? ((variantB - variantA) / variantA * 100).toFixed(1) : 0;
+    
+    showToast(`🏁 Test ended! Winner: Variant ${winner} ${improvement > 0 ? `(+${improvement}%)` : ''}`);
+    
+    // Remove from UI
+    const widget = document.getElementById(`abTest_${testId}`);
+    if (widget) widget.remove();
+    
+    delete activeABTests[testId];
+    saveToLocalStorage();
+}
+
+// ============================================
+// SOCIAL MEDIA & EMAIL GENERATORS
+// ============================================
+function generateSocialMedia() {
+    const product = PRODUCTS[0];
+    if (!product) { showToast('No products found', true); return; }
+    
+    const templates = {
+        twitter: `🚀 Just launched "${product.name}" on @gumroad!\n\n${product.description?.substring(0, 100)}...\n\nGet it here: ${product.url || 'link in bio'}\n\n#Gumroad #CreatorEconomy`,
+        linkedin: `📚 Excited to share my new product: ${product.name}\n\n${product.description}\n\nPerfect for creators looking to level up.\n\nCheck it out: ${product.url}`,
+        instagram: `✨ NEW PRODUCT ALERT ✨\n\n${product.name}\n\n${product.description?.substring(0, 80)}...\n\nLink in bio! 🔗\n\n#digitalproduct #gumroad`,
+        facebook: `🎉 Just released: ${product.name}!\n\n${product.description}\n\nGrab yours today: ${product.url}`,
+        tiktok: `POV: You just found the best ${product.name.split(' ')[0]} product on Gumroad 🔥\n\n${product.description?.substring(0, 60)}...\n\n#gumroad #digitalproducts`
+    };
+    
+    let html = `<div class="widget"><h3>📱 Social Media Content</h3>`;
+    for (const [platform, content] of Object.entries(templates)) {
+        html += `<div class="social-card" onclick="copyToClipboard('${platform}', \`${content.replace(/`/g, '\\`')}\`)">
+            <strong>📌 ${platform.toUpperCase()}</strong>
+            <p style="font-size: 11px; margin-top: 5px;">${content.substring(0, 80)}...</p>
+            <span style="font-size: 10px; color: var(--mu);">Click to copy</span>
+        </div>`;
+    }
+    html += `</div>`;
+    
+    document.getElementById('dashboardWidgets2').innerHTML = html + document.getElementById('dashboardWidgets2').innerHTML;
+    showToast('📱 Social media content generated!');
+}
+
+function generateEmailCampaign() {
+    const product = PRODUCTS[0];
+    if (!product) { showToast('No products found', true); return; }
+    
+    const emails = {
+        welcome: `Subject: Welcome to ${product.name} 🎉\n\nHi there,\n\nThank you for purchasing ${product.name}! Here's what you'll get:\n\n${product.description}\n\nGet started now: ${product.url}\n\nBest,\nThe Team`,
+        abandoned: `Subject: Don't miss out on ${product.name} ⏰\n\nHey,\n\nYou left ${product.name} in your cart. Here's a 10% discount code: WELCOME10\n\nGrab it now: ${product.url}`,
+        post_purchase: `Subject: How to get the most from ${product.name}\n\nCongrats on your purchase!\n\nHere are 3 quick tips to maximize ${product.name}:\n\n1. ${product.description?.substring(0, 50)}...\n2. Share with your audience\n3. Leave a review!\n\nCheers!`,
+        reengagement: `Subject: ${product.name} just got better! ✨\n\nWe've updated ${product.name} with new features!\n\nLog in to see what's new: ${product.url}`
+    };
+    
+    let html = `<div class="widget"><h3>📧 Email Campaign Suite</h3>`;
+    for (const [type, content] of Object.entries(emails)) {
+        html += `<div class="social-card" onclick="copyToClipboard('${type}', \`${content.replace(/`/g, '\\`')}\`)">
+            <strong>📧 ${type.replace('_', ' ').toUpperCase()}</strong>
+            <p style="font-size: 11px; margin-top: 5px;">${content.substring(0, 80)}...</p>
+            <span style="font-size: 10px; color: var(--mu);">Click to copy</span>
+        </div>`;
+    }
+    html += `</div>`;
+    
+    document.getElementById('dashboardWidgets2').innerHTML = html + document.getElementById('dashboardWidgets2').innerHTML;
+    showToast('📧 Email campaign generated!');
+}
+
+function generateQRCode() {
+    const product = PRODUCTS[0];
+    if (!product) { showToast('No products found', true); return; }
+    
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(product.url || 'https://gumroad.com')}`;
+    const html = `
+        <div class="widget">
+            <h3>📱 QR Code: ${product.name}</h3>
+            <div style="text-align: center; padding: 15px; background: white; border-radius: 12px;">
+                <img src="${qrUrl}" width="150" height="150" alt="QR Code">
+                <p style="margin-top: 10px; font-size: 11px;">Scan to visit product page</p>
+                <button class="action-btn" onclick="window.open('${qrUrl}', '_blank')">📥 Download QR Code</button>
+            </div>
+        </div>
+    `;
+    document.getElementById('dashboardWidgets2').innerHTML = html + document.getElementById('dashboardWidgets2').innerHTML;
+    showToast('📱 QR Code generated!');
+}
+
+function copyToClipboard(name, content) {
+    navigator.clipboard.writeText(content).then(() => showToast(`📌 ${name} copied!`));
+}
+
+// ============================================
+// RENDER DASHBOARD
+// ============================================
+function renderDash() {
+    const prods = PRODUCTS;
+    const paid = prods.filter(p => p.price > 0);
+    const free = prods.filter(p => p.price === 0);
+    const sales = prods.reduce((a, p) => a + (p.sales_count || 0), 0);
+    const totalRevenue = paid.reduce((a,p) => a + ((p.price/100)*(p.sales_count||0)), 0);
+    const score = calcStoreScore(prods);
+    const sc = score >= 70 ? 'var(--grn)' : score >= 40 ? 'var(--amb)' : 'var(--red)';
+    
+    document.getElementById('statsEl').innerHTML = `
+        <div class="scard"><div class="scard-l">📦 TOTAL</div><div class="scard-v">${prods.length}</div></div>
+        <div class="scard"><div class="scard-l">💰 PAID</div><div class="scard-v" style="color:var(--acc)">${paid.length}</div></div>
+        <div class="scard"><div class="scard-l">🎁 FREE</div><div class="scard-v" style="color:var(--blu)">${free.length}</div></div>
+        <div class="scard"><div class="scard-l">📈 SALES</div><div class="scard-v">${sales.toLocaleString()}</div></div>
+        <div class="scard"><div class="scard-l">💵 REVENUE</div><div class="scard-v">$${totalRevenue.toLocaleString()}</div></div>
+        <div class="scard"><div class="scard-l">⭐ AVG SCORE</div><div class="scard-v">${Math.round(prods.reduce((a,p)=>a+calcProductScore(p),0)/prods.length)}</div></div>
+    `;
+    
+    document.getElementById('healthEl').innerHTML = `
+        <div class="health">
+            <div class="h-num" style="color:${sc}">${score}</div>
+            <div class="h-info"><h3>🏪 Store Health Score / 100</h3><p>${score >= 70 ? '✓ Strong store!' : score >= 40 ? '⚠️ Room for improvement' : '🔴 Critical issues'}</p></div>
+        </div>
+    `;
+    
+    // Row 1 Widgets - FIXED: Changed PRODS to PRODUCTS
+    const firstProduct = PRODUCTS[0];
+    const grade = firstProduct ? gradeDescription(firstProduct.description) : { score: 0, grade: 'N/A', total: 6 };
+    const gradeColor = grade.grade.includes('A') ? 'grade-A' : (grade.grade.includes('B') ? 'grade-B' : (grade.grade.includes('C') ? 'grade-C' : 'grade-D'));
+    
+    const topProducts = [...paid].sort((a,b) => (b.price/100)*(b.sales_count||0) - (a.price/100)*(a.sales_count||0)).slice(0, 5);
+    let revenueHtml = `<div class="widget"><h3>💰 Top Revenue</h3>`;
+    topProducts.forEach(p => {
+        const revenue = (p.price/100) * (p.sales_count || 0);
+        const maxRevenue = topProducts[0] ? (topProducts[0].price/100)*(topProducts[0].sales_count||0) : 1;
+        const percent = (revenue / maxRevenue) * 100;
+        revenueHtml += `
+            <div style="margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; font-size: 11px;">
+                    <span>${p.name.substring(0, 30)}</span>
+                    <span style="color: var(--acc);">$${revenue.toLocaleString()}</span>
+                </div>
+                <div class="revenue-chart-bar"><div class="revenue-fill" style="width: ${percent}%;"></div></div>
+            </div>
+        `;
+    });
+    revenueHtml += `</div>`;
+    
+    const ltv = calculateLTV();
+    const ltvHtml = `<div class="widget"><h3>💰 LTV Analytics</h3><div style="font-size: 32px; font-weight: 800; color: var(--acc);">$${ltv}</div><div style="font-size: 11px;">Average Customer Value</div></div>`;
+    
+    document.getElementById('dashboardWidgets1').innerHTML = revenueHtml + `<div class="widget"><h3>📝 Description Quality</h3><div style="font-size: 32px; font-weight: 800;" class="${gradeColor}">${grade.grade}</div><div style="font-size: 12px;">Score: ${grade.score}/${grade.total}</div></div>` + ltvHtml;
+    
+    // Render product list
+    const listEl = document.getElementById('listEl');
+    listEl.innerHTML = '';
+    if (paid.length) {
+        listEl.innerHTML += `<div class="sh"><h2>💰 PAID PRODUCTS</h2><span class="tag tag-y">${paid.length}</span></div>`;
+        paid.forEach(p => listEl.appendChild(makeCard(p)));
+    }
+    if (free.length) {
+        listEl.innerHTML += `<div class="sh"><h2>🎁 FREE PRODUCTS</h2><span class="tag tag-b">${free.length}</span></div>`;
+        free.forEach(p => listEl.appendChild(makeCard(p)));
+    }
+}
+
+function makeCard(p) {
+    const sc = calcProductScore(p);
+    const scCls = sc >= 70 ? 'sc-hi' : sc >= 45 ? 'sc-mi' : 'sc-lo';
+    const isPaid = p.price > 0;
+    const priceLabel = isPaid ? '$' + (p.price / 100).toFixed(2) : 'FREE';
+    const name = (p.name || 'Untitled');
+    const shortName = name.length > 55 ? name.substring(0, 55) + '…' : name;
+    const init = name.substring(0, 2).toUpperCase();
+    const sales = p.sales_count || 0;
+    const uid = 'pc_' + (p.id || Math.random().toString(36).substr(2, 6));
+    const isFavorite = FAVORITES.has(p.id);
+    
+    const grade = gradeDescription(p.description);
+    const priceAdvice = isPaid ? suggestOptimalPrice(p) : null;
+    const checklist = generateLaunchChecklist(p);
+    const checklistHtml = checklist.slice(0, 4).map(item => `<div class="checklist-item">${item.completed ? '✅' : '⬜'} ${item.text}</div>`).join('');
+    
+    const div = document.createElement('div');
+    div.className = 'pc';
+    div.id = uid;
+    div.innerHTML = `
+        <div class="pc-head" onclick="toggleCard('${uid}')">
+            <div class="pc-ico ${isPaid ? 'ico-p' : 'ico-f'}">${escapeHtml(init)}</div>
+            <div class="pc-info">
+                <div class="pc-name">
+                    ${escapeHtml(shortName)}
+                    <span class="favorite-star ${isFavorite ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite('${p.id}', this)">⭐</span>
+                </div>
+                <div class="pc-sub">${priceLabel} · ${sales} sale${sales !== 1 ? 's' : ''}</div>
+            </div>
+            <div class="pc-right">
+                <span class="sc-badge ${scCls}">${sc}/100</span>
+                <span class="arr" id="arr_${uid}">▼</span>
+            </div>
+        </div>
+        <div class="pc-body" id="body_${uid}">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-bottom: 15px;">
+                <div class="abox"><div class="abox-l">📝 Quality</div><p><strong>${grade.grade}</strong> (${grade.score}/${grade.total})</p></div>
+                ${priceAdvice ? `<div class="abox"><div class="abox-l">💰 Price</div><p>Current: $${priceAdvice.current}<br>Suggested: <strong style="color: var(--acc);">$${priceAdvice.suggested}</strong></p></div>` : ''}
+                <div class="abox"><div class="abox-l">✅ Checklist</div>${checklistHtml}</div>
+            </div>
+            <button class="run-btn" id="rbtn_${uid}" onclick="runAudit('${uid}', ${JSON.stringify(JSON.stringify({
+                id: p.id, name: p.name, price: p.price, priceLabel: priceLabel, sales: sales, description: (p.description || '').substring(0, 800)
+            }))})">
+                🤖 Run AI Audit →
+            </button>
+            <div id="res_${uid}"></div>
+        </div>
+    `;
+    return div;
+}
+
+function toggleFavorite(productId, element) {
+    saveState(); // Save before change for undo
+    if (FAVORITES.has(productId)) {
+        FAVORITES.delete(productId);
+        element.classList.remove('active');
+    } else {
+        FAVORITES.add(productId);
+        element.classList.add('active');
+    }
+    saveToLocalStorage();
+}
+
+function toggleCard(uid) {
+    const body = document.getElementById('body_' + uid);
+    const arr = document.getElementById('arr_' + uid);
+    body.classList.toggle('open');
+    arr.classList.toggle('open');
+}
+
+// ============================================
+// BATCH AUDIT
+// ============================================
+let isBatching = false;
+async function batchAuditAll() {
+    if (isBatching) { showToast('Batch in progress', true); return; }
+    const productCards = document.querySelectorAll('.pc');
+    const unaudited = Array.from(productCards).filter(card => !card.querySelector('.run-btn')?.disabled);
+    if (unaudited.length === 0) { showToast('All products audited', true); return; }
+    if (!confirm(`Run AI audit on ${unaudited.length} products?`)) return;
+    
+    saveState(); // Save before batch operation
+    
+    isBatching = true;
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+    progressBar.style.display = 'block';
+    
+    let completed = 0;
+    for (let i = 0; i < unaudited.length; i++) {
+        const percent = Math.round((i / unaudited.length) * 100);
+        progressFill.style.width = `${percent}%`;
+        progressFill.textContent = `${percent}% - ${completed}/${unaudited.length}`;
+        unaudited[i].querySelector('.run-btn')?.click();
+        completed++;
+        await new Promise(resolve => setTimeout(resolve, 3500));
+    }
+    progressFill.style.width = '100%';
+    progressFill.textContent = 'Complete!';
+    setTimeout(() => { progressBar.style.display = 'none'; progressFill.style.width = '0%'; }, 2000);
+    isBatching = false;
+    showToast(`✅ Batch complete!`);
+    saveToLocalStorage();
+}
+
+// ============================================
+// AI AUDIT
+// ============================================
+async function runAudit(uid, jsonStr) {
+    const p = JSON.parse(jsonStr);
+    const resEl = document.getElementById('res_' + uid);
+    const btn = document.getElementById('rbtn_' + uid);
+    
+    if (AUDIT_CACHE[p.id]) {
+        renderAudit(resEl, AUDIT_CACHE[p.id], p);
+        showToast(`📦 Using cached audit`);
+        return;
+    }
+    
+    if (!GEMINI_KEY) {
+        resEl.innerHTML = '<div class="ld" style="color:var(--red)">⚠️ Missing API key</div>';
+        return;
+    }
+    
+    btn.disabled = true;
+    btn.textContent = '🤖 AI analyzing...';
+    resEl.innerHTML = '<div class="ld"><span>🔍 Auditing...</span></div>';
+    
+    const prompt = `Audit this Gumroad product. Return ONLY JSON: {"score":0-100,"verdict":"","issues":[{"severity":"critical/warning/good","text":""}],"price_feedback":"","title_rewrite":"","new_description":""}
+Product: ${p.name}, Price: ${p.priceLabel}, Sales: ${p.sales}, Description: ${p.description || 'NONE'}`;
+    
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.7, maxOutputTokens: 1200 } })
+        });
+        
+        if (!response.ok) throw new Error('API call failed');
+        const data = await response.json();
+        const content = data.candidates[0].content.parts[0].text;
+        let clean = content.replace(/```json|```/g, '').trim();
+        const match = clean.match(/\{[\s\S]*\}/);
+        const audit = JSON.parse(match ? match[0] : clean);
+        
+        AUDIT_CACHE[p.id] = audit;
+        saveToLocalStorage();
+        renderAudit(resEl, audit, p);
+        showToast(`✅ Audit complete`);
+    } catch(e) {
+        resEl.innerHTML = `<div class="ld" style="color:var(--red)">❌ Failed: ${e.message}</div>`;
+    }
+    btn.disabled = false;
+    btn.textContent = '🔄 Re-run Audit →';
+}
+
+function renderAudit(el, a, p) {
+    const sc = a.score >= 70 ? 'var(--grn)' : a.score >= 45 ? 'var(--amb)' : 'var(--red)';
+    const issues = (a.issues || []).map(i => `<li><span class="idot ${i.severity === 'critical' ? 'dc' : (i.severity === 'warning' ? 'dw' : 'dg')}"></span><span>${escapeHtml(i.text)}</span></li>`).join('');
+    const did = 'desc_' + p.id + '_' + Date.now();
+    
+    el.innerHTML = `
+        <div class="a2col">
+            <div class="abox"><div class="abox-l">🎯 AI SCORE</div><p style="font-size:38px;font-weight:800;color:${sc}">${a.score}<span style="font-size:16px;opacity:0.5">/100</span></p><p>${escapeHtml(a.verdict || '')}</p></div>
+            <div class="abox"><div class="abox-l">💰 PRICE</div><p>${escapeHtml(a.price_feedback || '—')}</p></div>
+        </div>
+        <div class="afull"><div class="afull-l">📋 ISSUES</div><ul class="ilist">${issues}</ul></div>
+        <div class="afull"><div class="afull-l">✨ TITLE</div><p class="newtitle">${escapeHtml(a.title_rewrite || p.name)}</p></div>
+        <div class="afull"><div class="afull-l">📝 DESCRIPTION</div><div class="newdesc" id="${did}">${escapeHtml(a.new_description || '')}</div><button class="cpbtn" onclick="doCopy('${did}',this)">📋 Copy</button></div>
+    `;
+}
+
+function doCopy(id, btn) {
+    navigator.clipboard.writeText(document.getElementById(id)?.innerText || '').then(() => {
+        btn.textContent = '✅ Copied!';
+        setTimeout(() => btn.textContent = '📋 Copy', 2000);
+        showToast('Copied!');
+    });
+}
+
+// ============================================
+// EXPORTS & UTILITIES
+// ============================================
+function exportToCSV() {
+    const products = PRODUCTS.map(p => ({
+        name: p.name, price: p.price/100, sales: p.sales_count || 0, revenue: ((p.price/100)*(p.sales_count||0)).toFixed(2),
+        score: calcProductScore(p), description_quality: gradeDescription(p.description).grade
+    }));
+    const headers = Object.keys(products[0]);
+    const csv = [headers.join(','), ...products.map(p => headers.map(h => typeof p[h] === 'string' ? `"${p[h].replace(/"/g, '""')}"` : p[h]).join(','))].join('\n');
+    const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `gumroad_audit_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(blob);
+    showToast('📊 CSV exported!');
+}
+
+function exportToJSON() {
+    const exportData = { exportedAt: new Date().toISOString(), products: PRODUCTS, auditCache: AUDIT_CACHE, favorites: Array.from(FAVORITES) };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `gumroad_export_${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(blob);
+    showToast('💾 JSON exported!');
+}
+
+function generatePriorityReport() {
+    const lowPerforming = PRODUCTS.filter(p => calcProductScore(p) < 50);
+    const noDescription = PRODUCTS.filter(p => !p.description || p.description.length < 50);
+    const zeroSales = PRODUCTS.filter(p => (p.sales_count || 0) === 0 && p.price > 0);
+    const html = `
+        <div class="priority-list">
+            <h3>🎯 Priority Actions</h3>
+            <div class="priority-item priority-high">🔴 ${lowPerforming.length} products below 50</div>
+            <div class="priority-item priority-high">🔴 ${noDescription.length} need descriptions</div>
+            <div class="priority-item priority-medium">🟡 ${zeroSales.length} paid products have zero sales</div>
+            <div class="priority-item">💡 Focus on: ${lowPerforming.slice(0, 2).map(p => p.name).join(', ')}</div>
+        </div>
+    `;
+    document.getElementById('priorityReport').innerHTML = html;
+    document.getElementById('priorityReport').style.display = 'block';
+    showToast('📋 Priority report generated');
+}
+
+function filterProducts() {
+    const searchTerm = document.getElementById('searchFilter').value.toLowerCase();
+    const typeFilter = document.getElementById('typeFilter').value;
+    const scoreFilter = document.getElementById('scoreFilter').value;
+    document.querySelectorAll('.pc').forEach(card => {
+        const name = card.querySelector('.pc-name')?.innerText.toLowerCase() || '';
+        const isPaid = !!card.querySelector('.ico-p');
+        const score = parseInt(card.querySelector('.sc-badge')?.innerText) || 0;
+        let show = true;
+        if (searchTerm && !name.includes(searchTerm)) show = false;
+        if (typeFilter === 'paid' && !isPaid) show = false;
+        if (typeFilter === 'free' && isPaid) show = false;
+        if (scoreFilter === 'high' && score < 70) show = false;
+        if (scoreFilter === 'medium' && (score < 45 || score >= 70)) show = false;
+        if (scoreFilter === 'low' && score >= 45) show = false;
+        card.style.display = show ? 'block' : 'none';
+    });
+}
+
+function sortProducts() {
+    const sortBy = document.getElementById('sortSelect').value;
+    const listEl = document.getElementById('listEl');
+    const products = Array.from(listEl.children).filter(c => c.classList?.contains('pc'));
+    products.sort((a, b) => {
+        const aSales = parseInt(a.querySelector('.pc-sub')?.innerText.match(/(\d+) sale/)?.[1] || 0);
+        const bSales = parseInt(b.querySelector('.pc-sub')?.innerText.match(/(\d+) sale/)?.[1] || 0);
+        const aScore = parseInt(a.querySelector('.sc-badge')?.innerText) || 0;
+        const bScore = parseInt(b.querySelector('.sc-badge')?.innerText) || 0;
+        if (sortBy === 'sales') return bSales - aSales;
+        if (sortBy === 'score') return bScore - aScore;
+        return 0;
+    });
+    products.forEach(p => listEl.appendChild(p));
+}
+
+function goBack() {
+    document.getElementById('screen-connect').style.display = 'block';
+    document.getElementById('screen-dash').style.display = 'none';
+    PRODUCTS = [];
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// Event listeners
+document.getElementById('importBtn').addEventListener('click', importManualProducts);
+document.getElementById('loadSavedBtn').addEventListener('click', () => {
+    loadFromLocalStorage();
+    if (PRODUCTS.length > 0) {
+        document.getElementById('screen-connect').style.display = 'none';
+        document.getElementById('screen-dash').style.display = 'block';
+    }
+});
+</script>
+</body>
+</html>
