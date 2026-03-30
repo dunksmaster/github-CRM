@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -734,7 +733,7 @@
             <p style="margin-bottom: 1rem; font-size: 13px;">Please enter your license key to continue using Gumroad Auditor Enterprise.</p>
             <input type="text" id="licenseKeyInput" class="inp" placeholder="Enter your license key..." style="width: 100%; margin-bottom: 1rem;">
             <button class="go-btn" onclick="validateAndSaveLicense()" style="width: 100%;">Activate License</button>
-            <p style="margin-top: 1rem; font-size: 11px; color: var(--mu);">Don\'t have a license? <a href="#" onclick="showTrial()" style="color: var(--acc);">Start 14-day free trial</a></p>
+            <p style="margin-top: 1rem; font-size: 11px; color: var(--mu);">Don't have a license? <a href="#" onclick="showTrial()" style="color: var(--acc);">Start 14-day free trial</a></p>
             <p class="ferr" id="licenseError"></p>
         </div>
     </div>
@@ -773,7 +772,7 @@
                 </div>
                 
                 <div class="field-label">📋 PASTE JSON RESPONSE HERE</div>
-                <textarea id="manualProducts" rows="5" placeholder=\'Paste your Gumroad API JSON response here...\'></textarea>
+                <textarea id="manualProducts" rows="5" placeholder='Paste your Gumroad API JSON response here...'></textarea>
                 
                 <div class="inp-row" style="margin-top: 12px;">
                     <button class="go-btn" id="importBtn" style="flex: 1;">📥 Import Products</button>
@@ -1391,7 +1390,7 @@ function calculateLTV() {
 function gradeDescription(description) {
     const checks = {
         length: description?.length > 200 ? '✅' : '❌',
-        hasBullets: /[•\\-★→]/.test(description) ? '✅' : '❌',
+        hasBullets: /[•\-★→]/.test(description) ? '✅' : '❌',
         hasEmotion: /(amazing|exclusive|limited|proven|guaranteed|ultimate)/i.test(description) ? '✅' : '❌',
         hasSocialProof: /(customers|users|people|rated|review)/i.test(description) ? '✅' : '❌',
         hasCTA: /(buy|get|download|start|join|click)/i.test(description) ? '✅' : '❌',
@@ -1529,7 +1528,7 @@ function generateSocialMedia() {
     
     let html = `<div class="widget"><h3>📱 Social Media Content</h3>`;
     for (const [platform, content] of Object.entries(templates)) {
-        html += `<div class="social-card" onclick="copyToClipboard('${platform}', \\`${content.replace(/`/g, '\\\\`')}\\`)">
+        html += `<div class="social-card" onclick="copyToClipboard('${platform}', \\\`${content.replace(/`/g, '\\\\`')}\\\`)">
             <strong>📌 ${platform.toUpperCase()}</strong>
             <p style="font-size: 11px; margin-top: 5px;">${content.substring(0, 80)}...</p>
             <span style="font-size: 10px; color: var(--mu);">Click to copy</span>
@@ -1546,15 +1545,15 @@ function generateEmailCampaign() {
     if (!product) { showToast('No products found', true); return; }
     
     const emails = {
-        welcome: `Subject: Welcome to ${product.name} 🎉\\n\\nHi there,\\n\\nThank you for purchasing ${product.name}! Here\'s what you\'ll get:\\n\\n${product.description}\\n\\nGet started now: ${product.url}\\n\\nBest,\\nThe Team`,
-        abandoned: `Subject: Don\'t miss out on ${product.name} ⏰\\n\\nHey,\\n\\nYou left ${product.name} in your cart. Here\'s a 10% discount code: WELCOME10\\n\\nGrab it now: ${product.url}`,
+        welcome: `Subject: Welcome to ${product.name} 🎉\\n\\nHi there,\\n\\nThank you for purchasing ${product.name}! Here's what you'll get:\\n\\n${product.description}\\n\\nGet started now: ${product.url}\\n\\nBest,\\nThe Team`,
+        abandoned: `Subject: Don't miss out on ${product.name} ⏰\\n\\nHey,\\n\\nYou left ${product.name} in your cart. Here's a 10% discount code: WELCOME10\\n\\nGrab it now: ${product.url}`,
         post_purchase: `Subject: How to get the most from ${product.name}\\n\\nCongrats on your purchase!\\n\\nHere are 3 quick tips to maximize ${product.name}:\\n\\n1. ${product.description?.substring(0, 50)}...\\n2. Share with your audience\\n3. Leave a review!\\n\\nCheers!`,
-        reengagement: `Subject: ${product.name} just got better! ✨\\n\\nWe\'ve updated ${product.name} with new features!\\n\\nLog in to see what\'s new: ${product.url}`
+        reengagement: `Subject: ${product.name} just got better! ✨\\n\\nWe've updated ${product.name} with new features!\\n\\nLog in to see what's new: ${product.url}`
     };
     
     let html = `<div class="widget"><h3>📧 Email Campaign Suite</h3>`;
     for (const [type, content] of Object.entries(emails)) {
-        html += `<div class="social-card" onclick="copyToClipboard('${type}', \\`${content.replace(/`/g, '\\\\`')}\\`)">
+        html += `<div class="social-card" onclick="copyToClipboard('${type}', \\\`${content.replace(/`/g, '\\\\`')}\\\`)">
             <strong>📧 ${type.replace('_', ' ').toUpperCase()}</strong>
             <p style="font-size: 11px; margin-top: 5px;">${content.substring(0, 80)}...</p>
             <span style="font-size: 10px; color: var(--mu);">Click to copy</span>
@@ -1911,8 +1910,8 @@ function sortProducts() {
     const listEl = document.getElementById('listEl');
     const products = Array.from(listEl.children).filter(c => c.classList?.contains('pc'));
     products.sort((a, b) => {
-        const aSales = parseInt(a.querySelector('.pc-sub')?.innerText.match(/(\\d+) sale/)?.[1] || 0);
-        const bSales = parseInt(b.querySelector('.pc-sub')?.innerText.match(/(\\d+) sale/)?.[1] || 0);
+        const aSales = parseInt(a.querySelector('.pc-sub')?.innerText.match(/(\d+) sale/)?.[1] || 0);
+        const bSales = parseInt(b.querySelector('.pc-sub')?.innerText.match(/(\d+) sale/)?.[1] || 0);
         const aScore = parseInt(a.querySelector('.sc-badge')?.innerText) || 0;
         const bScore = parseInt(b.querySelector('.sc-badge')?.innerText) || 0;
         if (sortBy === 'sales') return bSales - aSales;
